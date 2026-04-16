@@ -9,11 +9,11 @@ class LocationPolicy
 {
     public function update(User $user, Location $location): bool
     {
-        return $user->id === $location->user_id;
+        return $user->id === $location->user_id || $user->is_admin;
     }
 
     public function delete(User $user, Location $location): bool
     {
-        return $user->id === $location->user_id;
+        return $user->id === $location->user_id || $user->is_admin;
     }
 }

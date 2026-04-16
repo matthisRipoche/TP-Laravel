@@ -26,6 +26,8 @@ class LocationController extends Controller
 
     public function create(Request $request): View
     {
+        $this->authorize('create', Location::class);
+
         $films = Film::orderBy('title')->get();
         $selectedFilm = $request->film_id ? Film::find($request->film_id) : null;
 
@@ -61,6 +63,8 @@ class LocationController extends Controller
 
     public function edit(Location $location): View
     {
+        $this->authorize('update', $location);
+
         $films = Film::orderBy('title')->get();
 
         return view('locations.edit', compact('location', 'films'));
@@ -68,6 +72,8 @@ class LocationController extends Controller
 
     public function update(Request $request, Location $location): RedirectResponse
     {
+        $this->authorize('update', $location);
+
         $validated = $request->validate([
             'film_id'     => ['required', 'exists:films,id'],
             'name'        => ['required', 'string', 'max:255'],
@@ -85,6 +91,8 @@ class LocationController extends Controller
 
     public function destroy(Location $location): RedirectResponse
     {
+        $this->authorize('delete', $location);
+
         $filmId = $location->film_id;
         $location->delete();
 

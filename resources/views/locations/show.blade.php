@@ -5,6 +5,7 @@
                 {{ $location->name }}
             </h2>
 
+            @can('update', $location)
             <div class="flex gap-2 shrink-0">
                 <a href="{{ route('locations.edit', $location) }}"
                     class="inline-flex items-center px-3 py-1.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 transition">
@@ -19,6 +20,7 @@
                     </button>
                 </form>
             </div>
+            @endcan
         </div>
     </x-slot>
 
