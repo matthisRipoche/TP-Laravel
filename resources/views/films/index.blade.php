@@ -46,6 +46,8 @@
                                    class="text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:underline">
                                     Voir les lieux →
                                 </a>
+
+                                @if(Auth::user()->is_admin)
                                 <div class="flex gap-2">
                                     <a href="{{ route('films.edit', $film) }}"
                                         class="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
@@ -60,6 +62,7 @@
                                         </button>
                                     </form>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     @endforeach

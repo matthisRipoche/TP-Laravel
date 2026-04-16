@@ -10,6 +10,8 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
 
+                    @if(Auth::user()->is_admin)
+
                     <form action="{{ route('films.update', $film) }}" method="POST" class="space-y-6">
                         @csrf
                         @method('PATCH')
@@ -50,6 +52,10 @@
                             </a>
                         </div>
                     </form>
+
+                    @else
+                        <p>Vous n'avez pas les droits pour modifier ce film</p>
+                    @endif
 
                 </div>
             </div>
