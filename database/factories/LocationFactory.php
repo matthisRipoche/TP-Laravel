@@ -20,8 +20,8 @@ class LocationFactory extends Factory
     public function definition(): array
     {
         return [
-            'film_id' => Film::factory(),
-            'user_id' => User::factory(),
+            'film_id' => Film::inRandomOrder()->first()->id,
+            'user_id' => User::inRandomOrder()->first()->id,
             'name' => $this->faker->name(),
             'city' => $this->faker->city(),
             'country' => $this->faker->country(),

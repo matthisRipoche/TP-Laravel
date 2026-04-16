@@ -13,13 +13,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// --- Films (index & show publics) ---
+// --- Films (index public) ---
 Route::get('/films', [FilmController::class, 'index'])->name('films.index');
-Route::get('/films/{film}', [FilmController::class, 'show'])->name('films.show');
 
 Route::middleware('auth')->group(function () {
 
-    // Films (écriture)
+    // Films
     Route::get('/films/create', [FilmController::class, 'create'])->name('films.create');
     Route::post('/films', [FilmController::class, 'store'])->name('films.store');
     Route::get('/films/{film}/edit', [FilmController::class, 'edit'])->name('films.edit');
@@ -41,5 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// --- Films (show public) ---
+// Doit être placé APRES /films/create pour éviter une erreur 404
+Route::get('/films/{film}', [FilmController::class, 'show'])->name('films.show');
 
 require __DIR__.'/auth.php';

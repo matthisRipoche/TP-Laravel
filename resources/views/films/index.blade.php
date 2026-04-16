@@ -4,12 +4,10 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Films') }}
             </h2>
-            @auth
-                <a href="{{ route('films.create') }}"
-                   class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 transition ease-in-out duration-150">
-                    + Ajouter un film
-                </a>
-            @endauth
+            <a href="{{ route('films.create') }}"
+                class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 transition ease-in-out duration-150">
+                + Ajouter un film
+            </a>
         </div>
     </x-slot>
 
@@ -48,22 +46,20 @@
                                    class="text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:underline">
                                     Voir les lieux →
                                 </a>
-                                @auth
-                                    <div class="flex gap-2">
-                                        <a href="{{ route('films.edit', $film) }}"
-                                           class="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
-                                            Modifier
-                                        </a>
-                                        <form action="{{ route('films.destroy', $film) }}" method="POST"
-                                              onsubmit="return confirm('Supprimer ce film ?')">
-                                            @csrf @method('DELETE')
-                                            <button type="submit"
-                                                    class="text-xs text-red-500 hover:text-red-700">
-                                                Supprimer
-                                            </button>
-                                        </form>
-                                    </div>
-                                @endauth
+                                <div class="flex gap-2">
+                                    <a href="{{ route('films.edit', $film) }}"
+                                        class="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+                                        Modifier
+                                    </a>
+                                    <form action="{{ route('films.destroy', $film) }}" method="POST"
+                                            onsubmit="return confirm('Supprimer ce film ?')">
+                                        @csrf @method('DELETE')
+                                        <button type="submit"
+                                                class="text-xs text-red-500 hover:text-red-700">
+                                            Supprimer
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     @endforeach

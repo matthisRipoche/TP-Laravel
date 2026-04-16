@@ -9,9 +9,6 @@ use Illuminate\View\View;
 
 class FilmController extends Controller
 {
-    /**
-     * Liste tous les films.
-     */
     public function index(): View
     {
         $films = Film::latest()->paginate(12);
@@ -19,17 +16,11 @@ class FilmController extends Controller
         return view('films.index', compact('films'));
     }
 
-    /**
-     * Affiche le formulaire de création.
-     */
     public function create(): View
     {
         return view('films.create');
     }
 
-    /**
-     * Enregistre un nouveau film.
-     */
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -45,9 +36,6 @@ class FilmController extends Controller
             ->with('success', 'Film ajouté avec succès.');
     }
 
-    /**
-     * Affiche le détail d'un film avec ses lieux.
-     */
     public function show(Film $film): View
     {
         $film->load('locations.user');
@@ -55,17 +43,11 @@ class FilmController extends Controller
         return view('films.show', compact('film'));
     }
 
-    /**
-     * Affiche le formulaire d'édition.
-     */
     public function edit(Film $film): View
     {
         return view('films.edit', compact('film'));
     }
 
-    /**
-     * Met à jour un film.
-     */
     public function update(Request $request, Film $film): RedirectResponse
     {
         $validated = $request->validate([
@@ -81,9 +63,6 @@ class FilmController extends Controller
             ->with('success', 'Film mis à jour avec succès.');
     }
 
-    /**
-     * Supprime un film (et ses lieux par cascade).
-     */
     public function destroy(Film $film): RedirectResponse
     {
         $film->delete();

@@ -4,24 +4,21 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ $location->name }}
             </h2>
-            @auth
-                @if (auth()->id() === $location->user_id)
-                    <div class="flex gap-2 shrink-0">
-                        <a href="{{ route('locations.edit', $location) }}"
-                           class="inline-flex items-center px-3 py-1.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 transition">
-                            Modifier
-                        </a>
-                        <form action="{{ route('locations.destroy', $location) }}" method="POST"
-                              onsubmit="return confirm('Supprimer ce lieu ?')">
-                            @csrf @method('DELETE')
-                            <button type="submit"
-                                    class="inline-flex items-center px-3 py-1.5 bg-red-600 border border-transparent rounded-md text-xs font-semibold text-white hover:bg-red-500 transition">
-                                Supprimer
-                            </button>
-                        </form>
-                    </div>
-                @endif
-            @endauth
+
+            <div class="flex gap-2 shrink-0">
+                <a href="{{ route('locations.edit', $location) }}"
+                    class="inline-flex items-center px-3 py-1.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 transition">
+                    Modifier
+                </a>
+                <form action="{{ route('locations.destroy', $location) }}" method="POST"
+                        onsubmit="return confirm('Supprimer ce lieu ?')">
+                    @csrf @method('DELETE')
+                    <button type="submit"
+                            class="inline-flex items-center px-3 py-1.5 bg-red-600 border border-transparent rounded-md text-xs font-semibold text-white hover:bg-red-500 transition">
+                        Supprimer
+                    </button>
+                </form>
+            </div>
         </div>
     </x-slot>
 
