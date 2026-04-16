@@ -32,6 +32,12 @@
                     {{ session('success') }}
                 </div>
             @endif
+            
+            @if (session('error'))
+                <div class="p-4 bg-red-100 dark:bg-red-900 border border-red-400 text-red-800 dark:text-red-200 rounded-lg">
+                    {{ session('error') }}
+                </div>
+            @endif
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 space-y-5">
 

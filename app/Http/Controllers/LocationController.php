@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Film;
 use App\Models\Location;
+use App\Models\Upvote;
+use App\Jobs\UpdateLocationUpvotes;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class LocationController extends Controller
 {
@@ -99,5 +102,33 @@ class LocationController extends Controller
         return redirect()
             ->route('films.show', $filmId)
             ->with('success', 'Lieu supprimé avec succès.');
+    }
+
+    public function upvote(Location $location): RedirectResponse 
+    {
+        // On vérifie si l'utilisateur connecté a deja voté pour ce 
+        $alreadyVoted = Upvote::where('user_id', Auth::id())
+            ->where('location_id', $location->id)
+            ->exists();
+
+        // Si oui on redirige avec le message d'erreur
+        if ($alreadyVoted) {
+            return redirect()
+                ->route('locations.show', $location)
+                ->with('error', 'Vous avez déjà voté pour ce lieu.');
+        }
+
+        // Sinon on enregistre le vote avec un message de succès
+        Upvote::create([
+            'user_id'     => Auth::id(),
+            'location_id' => $location->id,
+        ]);
+
+        UpdateLocationUpvotes::dispatch($location);
+
+        return redirect()
+            ->route('locations.show', $location)
+          ->with('success', 'Vote enregistré !');
+
     }
 }
