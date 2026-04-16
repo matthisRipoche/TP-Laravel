@@ -4,6 +4,7 @@ use App\Http\Controllers\FilmController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\IsAdmin;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,11 +20,11 @@ Route::get('/films', [FilmController::class, 'index'])->name('films.index');
 Route::middleware('auth')->group(function () {
 
     // Films
-    Route::get('/films/create', [FilmController::class, 'create'])->name('films.create');
-    Route::post('/films', [FilmController::class, 'store'])->name('films.store');
-    Route::get('/films/{film}/edit', [FilmController::class, 'edit'])->name('films.edit');
-    Route::patch('/films/{film}', [FilmController::class, 'update'])->name('films.update');
-    Route::delete('/films/{film}', [FilmController::class, 'destroy'])->name('films.destroy');
+    Route::get('/films/create', [FilmController::class, 'create'])->name('films.create')->middleware('isAdmin');
+    Route::post('/films', [FilmController::class, 'store'])->name('films.store')->middleware('isAdmin');
+    Route::get('/films/{film}/edit', [FilmController::class, 'edit'])->name('films.edit')->middleware('isAdmin');
+    Route::patch('/films/{film}', [FilmController::class, 'update'])->name('films.update')->middleware('isAdmin');
+    Route::delete('/films/{film}', [FilmController::class, 'destroy'])->name('films.destroy')->middleware('isAdmin');
 
     // Locations
     Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
