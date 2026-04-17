@@ -4,7 +4,6 @@ use App\Http\Controllers\FilmController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\IsAdmin;
 
 Route::get('/', function () {
     return view('welcome');

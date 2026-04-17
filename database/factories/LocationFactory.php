@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\Location;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Film;
+use App\Models\Location;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends Factory<Location>
@@ -26,7 +26,7 @@ class LocationFactory extends Factory
             'city' => $this->faker->city(),
             'country' => $this->faker->country(),
             'description' => $this->faker->paragraph(),
-            'upvotes_count' => 0
+            'upvotes_count' => 0,
         ];
     }
 }
