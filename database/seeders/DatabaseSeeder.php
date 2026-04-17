@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Film;
+use App\Models\Location;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
-use App\Models\Film;
-use App\Models\Location;
 
 class DatabaseSeeder extends Seeder
 {
@@ -41,5 +40,29 @@ class DatabaseSeeder extends Seeder
 
         Film::factory(10)->create();
         Location::factory(10)->create();
+
+        // Données de test pour la commande DeleteOldLocations
+        $user = User::first();
+        $film = Film::first();
+
+        // Plus d'un mois + 4 upvotes => NE doit PAS être supprimée
+        Location::factory()->create([
+            'user_id' => $user->id,
+            'film_id' => $film->id,
+            'name' => 'Vieux lieu populaire',
+            'upvotes_count' => 4,
+            'created_at' => now()->subDays(40),
+            'updated_at' => now()->subDays(40),
+        ]);
+
+        // Plus d'un mois + 1 upvote => DOIT être supprimée
+        Location::factory()->create([
+            'user_id' => $user->id,
+            'film_id' => $film->id,
+            'name' => 'Vieux lieu impopulaire',
+            'upvotes_count' => 1,
+            'created_at' => now()->subDays(40),
+            'updated_at' => now()->subDays(40),
+        ]);
     }
 }

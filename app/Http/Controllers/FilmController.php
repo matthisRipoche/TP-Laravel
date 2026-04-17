@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Film;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class FilmController extends Controller
@@ -24,9 +24,9 @@ class FilmController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'title'        => ['required', 'string', 'max:255'],
-            'release_year' => ['required', 'integer', 'min:1888', 'max:' . (date('Y') + 5)],
-            'synopsis'     => ['required', 'string'],
+            'title' => ['required', 'string', 'max:255'],
+            'release_year' => ['required', 'integer', 'min:1888', 'max:'.(date('Y') + 5)],
+            'synopsis' => ['required', 'string'],
         ]);
 
         $film = Film::create($validated);
@@ -51,9 +51,9 @@ class FilmController extends Controller
     public function update(Request $request, Film $film): RedirectResponse
     {
         $validated = $request->validate([
-            'title'        => ['required', 'string', 'max:255'],
-            'release_year' => ['required', 'integer', 'min:1888', 'max:' . (date('Y') + 5)],
-            'synopsis'     => ['required', 'string'],
+            'title' => ['required', 'string', 'max:255'],
+            'release_year' => ['required', 'integer', 'min:1888', 'max:'.(date('Y') + 5)],
+            'synopsis' => ['required', 'string'],
         ]);
 
         $film->update($validated);

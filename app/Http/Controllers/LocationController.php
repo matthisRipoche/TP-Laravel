@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\UpdateLocationUpvotes;
 use App\Models\Film;
 use App\Models\Location;
 use App\Models\Upvote;
-use App\Jobs\UpdateLocationUpvotes;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
-use Illuminate\Auth\Access\AuthorizationException;
 
 class LocationController extends Controller
 {
@@ -40,10 +38,10 @@ class LocationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'film_id'     => ['required', 'exists:films,id'],
-            'name'        => ['required', 'string', 'max:255'],
-            'city'        => ['required', 'string', 'max:255'],
-            'country'     => ['required', 'string', 'max:255'],
+            'film_id' => ['required', 'exists:films,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'country' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
         ]);
 
@@ -78,10 +76,10 @@ class LocationController extends Controller
         $this->authorize('update', $location);
 
         $validated = $request->validate([
-            'film_id'     => ['required', 'exists:films,id'],
-            'name'        => ['required', 'string', 'max:255'],
-            'city'        => ['required', 'string', 'max:255'],
-            'country'     => ['required', 'string', 'max:255'],
+            'film_id' => ['required', 'exists:films,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'country' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
         ]);
 
@@ -104,9 +102,9 @@ class LocationController extends Controller
             ->with('success', 'Lieu supprimé avec succès.');
     }
 
-    public function upvote(Location $location): RedirectResponse 
+    public function upvote(Location $location): RedirectResponse
     {
-        // On vérifie si l'utilisateur connecté a deja voté pour ce 
+        // On vérifie si l'utilisateur connecté a deja voté pour ce
         $alreadyVoted = Upvote::where('user_id', Auth::id())
             ->where('location_id', $location->id)
             ->exists();
@@ -120,7 +118,7 @@ class LocationController extends Controller
 
         // Sinon on enregistre le vote avec un message de succès
         Upvote::create([
-            'user_id'     => Auth::id(),
+            'user_id' => Auth::id(),
             'location_id' => $location->id,
         ]);
 
@@ -128,7 +126,7 @@ class LocationController extends Controller
 
         return redirect()
             ->route('locations.show', $location)
-          ->with('success', 'Vote enregistré !');
+            ->with('success', 'Vote enregistré !');
 
     }
 }
