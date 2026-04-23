@@ -4,6 +4,7 @@ use App\Http\Controllers\FilmController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialiteController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,11 @@ Route::get('/auth/google/callback', [SocialiteController::class, 'handleGoogleCa
 Route::get('/films', [FilmController::class, 'index'])->name('films.index');
 
 Route::middleware('auth')->group(function () {
+    // Abonnement
+    Route::get('/subscribe', [SubscriptionController::class, 'show'])->name('subscription.show');
+    Route::post('/subscribe/checkout', [SubscriptionController::class, 'checkout'])->name('subscription.checkout');
+    Route::get('/subscribe/success', [SubscriptionController::class, 'success'])->name('subscription.success');
+
 
     // Films
     Route::get('/films/create', [FilmController::class, 'create'])->name('films.create')->middleware('isAdmin');
