@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('locations.index')" :active="request()->routeIs('locations.*')">
                         {{ __('Lieux') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('subscription.show')" :active="request()->routeIs('subscription.*')">
+                        {{ Auth::user()->is_subscribed ? '⭐ Premium' : __('S\'abonner') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -81,6 +84,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('locations.index')" :active="request()->routeIs('locations.*')">
                 {{ __('Lieux') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('subscription.show')" :active="request()->routeIs('subscription.*')">
+                {{ Auth::user()->is_subscribed ? '⭐ Premium' : __('S\'abonner') }}
             </x-responsive-nav-link>
         </div>
 
